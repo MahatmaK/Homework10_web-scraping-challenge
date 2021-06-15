@@ -6,7 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 
 
-def scrape():
+def scrape_mars():
 
     # Setup splinter
     executable_path = {'executable_path': ChromeDriverManager().install()}
@@ -149,5 +149,14 @@ def scrape():
 
     browser.quit()
 
-    return news_title, news_p, mars_html, featured_image_url, hemisphere_image_urls
+    return_dict = {}
+    return_dict['news_title'] = news_title
+    return_dict['news_p'] = news_p
+    return_dict['featured_image_url'] = featured_image_url
+    return_dict['mars_html'] = mars_html
+    return_dict['hemisphere_image_urls'] = hemisphere_image_urls
+
+    print(featured_image_url)
+
+    return return_dict
 
