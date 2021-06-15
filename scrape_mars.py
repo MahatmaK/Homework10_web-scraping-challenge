@@ -31,9 +31,6 @@ def scrape_mars():
     # Quit browser
     browser.quit()
 
-
-
-
     # Setup splinter
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
@@ -56,25 +53,21 @@ def scrape_mars():
     # Quit browser
     browser.quit()
 
+    return_dict = {}
+    return_dict['news_title'] = news_title
+    return_dict['news_p'] = news_p
+    return_dict['featured_image_url'] = featured_image_url
+    #return_dict['hemisphere_image_urls'] = hemisphere_image_urls
+
+    return return_dict
 
 
 
-    # Define url
-    url = "https://galaxyfacts-mars.com/"
-
-    # Read url into tables
-    tables = pd.read_html(url)
-    mars_df = tables[1]
-
-    # Render to html
-    mars_html = mars_df.to_html()
-
-
-
+def hemispheres():
 
     # Setup splinter
     executable_path = {'executable_path': ChromeDriverManager().install()}
-    browser = Browser('chrome', **executable_path, headless=False)
+    browser = Browser('chrome', **executable_path, headless=True)
 
     # Define and vist html
     url = "https://marshemispheres.com/"
@@ -126,37 +119,30 @@ def scrape_mars():
         url_lst.append(new_url)
         
         browser.visit(url)
-
-        
-    # Rename products list to get rid of 'Enhanced' in favor of hemisphere
-    fproducts_lst = []
-
-    for product in products_lst:
-        first_string = product.split()[0]
-        second_string = product.split()[1]
-        third_string = 'Hemisphere'
-        final_string = f'{first_string} {second_string} {third_string}'
-        
-        fproducts_lst.append(final_string)
-        
+       
     # Create dictionary of title and image url
     hemisphere_image_urls = []
 
     # Add hemisphere and image link to dictionary
-    for x in range(0,len(fproducts_lst)-1):
-        my_dict = {'title': fproducts_lst[x], 'img_url': url_lst[x]}
+    for x in range(0,len(products_lst)):
+        my_dict = {'title': products_lst[x], 'img_url': url_lst[x]}
         hemisphere_image_urls.append(my_dict)
 
     browser.quit()
 
-    return_dict = {}
-    return_dict['news_title'] = news_title
-    return_dict['news_p'] = news_p
-    return_dict['featured_image_url'] = featured_image_url
-    return_dict['mars_html'] = mars_html
-    return_dict['hemisphere_image_urls'] = hemisphere_image_urls
+    return hemisphere_image_urls
 
-    print(featured_image_url)
 
-    return return_dict
+def mars_html():
 
+    # Define url
+    url = "https://galaxyfacts-mars.com/"
+
+    # Read url into tables
+    tables = pd.read_html(url)
+    mars_df = tables[0]
+
+    # Render to html
+    mars_html = mars_df.to_html()
+
+    return mars_html

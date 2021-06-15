@@ -1,5 +1,5 @@
 # Dependencies
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, Markup
 from flask_pymongo import PyMongo
 import scrape_mars
 
@@ -15,7 +15,13 @@ def index():
     mars = mongo.db.mars.find_one()
     #news_p = mongo.db.s
     
-    return render_template("index.html", text='test', mars=mars)
+    # Scrape mars data and store dictionary in variable
+    mars_html =  scrape_mars.mars_html()
+
+    # Scrape mars data and store dictionary in variable
+    hemispheres =  scrape_mars.hemispheres()
+
+    return render_template("index.html", mars=mars, mars_html=mars_html, hemispheres=hemispheres)
 
 # Route that will trigger the scrape function
 @app.route("/scrape")
@@ -32,9 +38,6 @@ def scrape():
 
     # Insert dictionary into mars collection
     mars.insert_one(mars_data)
-
-
-    #mars.update({}, mars_data, upsert=True)
     
     return redirect("/")
 

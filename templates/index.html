@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Mission to Mars</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 
     </head>
 
@@ -23,16 +23,16 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-8 col-sm-12">
                     <h2>Featured Mars Image</h2>
                     <img src= "{{ mars.featured_image_url }}" alt = "Feat_img">
                 </div>
 
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <h2>Mars Facts</h2>
                     
                     
-                    {{mars.mars_html}}
+                    {{ mars.mars_html }}
                 </div>
             </div>
 
@@ -45,21 +45,21 @@
 
             <div class="row">
 
-                {% for hemisphere in mars.hemisphere_image_urls %}
+                {% for hemisphere in hemispheres %}
 
-                <div class= "col-md-3 col-sm-6">
-                    <div class="card" style="width: 20rem;">
-                        <img class="card-img-top" src="{{hemisphere.image_url}}" alt="{{hemisphere.title}}">
+                <div class= "col-md-3 col-sm-6 mr-4">
+                    <div class="card" style="width: 250px;">
+                        <img class="card-img-top center-block" src="{{ hemisphere.img_url }}" alt="{{ hemisphere.title }}" width="240px">
                         <div class="card-body">
-                            <h5 class ="card_title">{{hemisphere.title}}</h5>
+                            <h5 class ="card_title" style="font-weight: bold; font-size:25px;">{{ hemisphere.title }}</h5>
                         </div>
                     </div>
                 </div>
 
                 {% endfor %}
-        
+            
             </div>
 
-        </div>`
+        </div>
     </body>
 </html>
