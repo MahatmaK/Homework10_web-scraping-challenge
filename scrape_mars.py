@@ -142,7 +142,32 @@ def mars_html():
     tables = pd.read_html(url)
     mars_df = tables[0]
 
+    # Clean DataFrame
+    # Create new row to add to top of dataframe
+    new_row = pd.DataFrame({0:"Description", 1:"", 2:""}, index=[0])
+
+    # Concat new row to mars_df
+    mars_df = pd.concat([new_row, mars_df])
+
+    # Extract first column and save for index
+    index_series = mars_df.loc[:,0].tolist()
+
+    # Rename column headers
+    mars_df = mars_df.rename(columns={1:"Mars",2:"Earth"})
+
+    # Set index first column
+    mars_df = mars_df.set_index(0)
+
+    # Rename column headers
+    mars_df.index.name = None
+
     # Render to html
     mars_html = mars_df.to_html()
 
+    # Eliminate \n
+    mars_html = mars_html.replace('\n', '')
+
+    # Save table
+    mars_df.to_html('comparison.html')
+    
     return mars_html
