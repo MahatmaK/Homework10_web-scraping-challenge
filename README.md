@@ -1,5 +1,5 @@
-# Homework10_web-scraping-challenge
-The repository for Homework 10
+# Web Scraping & Mongodb
+The repository for a web scraping (Beautiful Soup) and Mongodb project
 
 Files to submitted:
 -----------------------------
